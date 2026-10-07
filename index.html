@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toyota Deluxe - Confort & Confiabilidad</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fuentes Google Fonts Deluxe: 'Syne' (Titulares Lujo) y 'Outfit' (Cuerpo Elegante) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        toyota: {
+                            red: '#EB0A1E',
+                            darkRed: '#B30817',
+                            black: '#0D0D0D',
+                        }
+                    },
+                    fontFamily: {
+                        syne: ['Syne', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'hero-deluxe': '0 30px 60px -12px rgba(0, 0, 0, 0.08), 0 18px 36px -18px rgba(235, 10, 30, 0.06)',
+                        'badge-glow': '0 4px 20px rgba(235, 10, 30, 0.15)',
+                        'card-dark': '0 20px 40px rgba(0, 0, 0, 0.25)',
+                        'modal-deluxe': '0 25px 50px -12px rgba(0, 0, 0, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .glass-hero-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.85) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 1);
+        }
+
+        .glass-panel-dark {
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .glass-button-red {
+            background: #EB0A1E;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-button-red:hover {
+            background: #B30817;
+            box-shadow: 0 8px 25px rgba(235, 10, 30, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .glass-button-outline {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(13, 13, 13, 0.15);
+            transition: all 0.3s ease;
+        }
+        .glass-button-outline:hover {
+            background: #0D0D0D;
+            color: #ffffff;
+            border-color: #0D0D0D;
+        }
+
+        .tracking-ultra {
+            letter-spacing: 0.18em;
+        }
+    </style>
+</head>
+<body class="bg-[#F2F3F5] font-outfit text-gray-900 antialiased min-h-screen relative overflow-x-hidden">
+
+    <!-- Fondo de ambientalización corporativo -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-red-500/5 via-gray-300/10 to-transparent rounded-full blur-3xl"></div>
+    </div>
+
+    <!-- ==================== HEADER CORPORATIVO ==================== -->
+    <header class="sticky top-0 z-40 px-4 pt-4 pb-2">
+        <div class="max-w-7xl mx-auto glass-header rounded-2xl px-6 py-3.5 flex justify-between items-center shadow-sm">
+            
+            <!-- Logo Corporativo Toyota Deluxe -->
+            <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 bg-toyota-black rounded-xl flex items-center justify-center shadow-md border border-white/10">
+                    <i class="fa-solid fa-car text-toyota-red text-base"></i>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="font-syne text-2xl font-extrabold tracking-wider text-toyota-black">
+                        TOYOTA
+                    </span>
+                    <span class="text-xs font-bold font-outfit tracking-ultra px-2 py-0.5 rounded bg-toyota-red/10 text-toyota-red border border-toyota-red/20 uppercase">
+                        DELUXE
+                    </span>
+                </div>
+            </div>
+
+            <!-- Usuario Registrado / Botón de Acceso -->
+            <div class="flex items-center space-x-4">
+                <div id="userProfile" class="flex items-center space-x-3 bg-white/80 border border-gray-200/80 px-4 py-1.5 rounded-full shadow-sm hover:border-gray-300 transition">
+                    <div class="w-7 h-7 rounded-full bg-toyota-black text-white flex items-center justify-center text-xs font-bold">
+                        <i class="fa-solid fa-user text-toyota-red"></i>
+                    </div>
+                    <span id="userNameDisplay" class="text-xs font-bold tracking-wide text-gray-800">genlly roa</span>
+                    <button onclick="logout()" class="text-xs text-gray-400 hover:text-toyota-red transition-colors ml-1" title="Cerrar sesión">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
+                </div>
+
+                <button id="authBtn" onclick="openAuthModal()" class="hidden glass-button-outline text-xs px-5 py-2.5 rounded-xl font-bold text-gray-900 flex items-center space-x-2">
+                    <i class="fa-solid fa-id-card text-toyota-red"></i>
+                    <span>Registrarse / Ingresar</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO BANNER REDISEÑADO ==================== -->
+    <section class="relative z-10 my-8 px-4">
+        <div class="max-w-5xl mx-auto glass-hero-card p-10 md:p-14 rounded-[2.5rem] shadow-hero-deluxe text-center border border-white relative overflow-hidden">
+            
+            <div class="absolute -top-24 -right-24 w-60 h-60 bg-toyota-red/5 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Pill Tag -->
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white border border-toyota-red/20 text-toyota-red text-xs font-semibold tracking-wide shadow-badge-glow mb-6">
+                <span class="w-2 h-2 rounded-full bg-toyota-red animate-pulse"></span>
+                <i class="fa-solid fa-couch text-xs"></i>
+                <span class="uppercase tracking-wider font-bold">MÁXIMO CONFORT & EQUIPAMIENTO</span>
+            </div>
+
+            <!-- Título Principal -->
+            <h1 class="font-syne text-4xl sm:text-5xl md:text-6xl font-extrabold text-toyota-black tracking-tight leading-[1.15] mb-5">
+                El Máximo Confort en <span class="text-toyota-red drop-shadow-sm">Cada Trayecto</span>
+            </h1>
+
+            <!-- Subtítulo -->
+            <p class="font-outfit text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
+                Diseñados para brindarte la mayor comodidad, suavidad al conducir, tecnología intuitiva y la confiabilidad exclusiva que solo Toyota te puede ofrecer.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==================== CATÁLOGO DE VEHÍCULOS ==================== -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 py-6">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="font-syne text-2xl md:text-3xl font-extrabold text-toyota-black flex items-center gap-3">
+                <span class="w-2.5 h-8 bg-toyota-red rounded-full inline-block"></span>
+                Flota Toyota Confort & Elegancia
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="carGrid">
+            
+            <!-- Carro 1: Corolla Sedan Deluxe -->
+            <div class="bg-toyota-black rounded-3xl overflow-hidden shadow-card-dark border border-gray-800 hover:border-toyota-red/60 transition-all duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="relative h-60 overflow-hidden bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=800&q=80" alt="Toyota Corolla" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100">
+                        
+                        <div class="absolute top-4 left-4 bg-toyota-black/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-2">
+                            <i class="fa-solid fa-car-side text-toyota-red text-sm"></i>
+                            <span class="text-white text-xs font-bold">Sedán Confort</span>
+                        </div>
+
+                        <div class="absolute top-4 right-4 bg-toyota-red text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                            Más Vendido
+                        </div>
+                    </div>
+
+                    <div class="p-6 text-white">
+                        <h3 class="font-syne text-2xl font-bold text-white">Corolla Sedan Deluxe</h3>
+                        <p class="text-gray-400 text-xs mt-1">Interior insonorizado, asientos ergonómicos y marcha refinada.</p>
+                        
+                        <div class="mt-5 flex items-baseline justify-between border-t border-gray-800 pt-4">
+                            <span class="font-syne text-3xl font-black text-toyota-red">$28,500</span>
+                            <span class="text-xs font-semibold text-gray-400">USD + Gastos</span>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-2 gap-2 text-xs font-medium text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                            <div><i class="fa-solid fa-wind text-toyota-red mr-1.5"></i> Clima Bizona</div>
+                            <div><i class="fa-solid fa-shield-halved text-toyota-red mr-1.5"></i> Safety Sense 3.0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 pt-0">
+                    <button onclick="openBuyModal('Corolla Sedan Deluxe', 28500)" class="w-full glass-button-red py-3.5 rounded-xl font-bold text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Reservar / Comprar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carro 2: RAV4 Hybrid Premium -->
+            <div class="bg-toyota-black rounded-3xl overflow-hidden shadow-card-dark border border-gray-800 hover:border-toyota-red/60 transition-all duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="relative h-60 overflow-hidden bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80" alt="Toyota RAV4" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100">
+                        
+                        <div class="absolute top-4 left-4 bg-toyota-black/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-2">
+                            <i class="fa-solid fa-truck-pickup text-toyota-red text-sm"></i>
+                            <span class="text-white text-xs font-bold">SUV Familiar</span>
+                        </div>
+
+                        <div class="absolute top-4 right-4 bg-gray-800 text-gray-200 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider border border-gray-700">
+                            Híbrido
+                        </div>
+                    </div>
+
+                    <div class="p-6 text-white">
+                        <h3 class="font-syne text-2xl font-bold text-white">RAV4 Hybrid Premium</h3>
+                        <p class="text-gray-400 text-xs mt-1">Amplio espacio interior, techo panorámico y andar silencioso.</p>
+                        
+                        <div class="mt-5 flex items-baseline justify-between border-t border-gray-800 pt-4">
+                            <span class="font-syne text-3xl font-black text-toyota-red">$36,500</span>
+                            <span class="text-xs font-semibold text-gray-400">USD + Gastos</span>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-2 gap-2 text-xs font-medium text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                            <div><i class="fa-solid fa-leaf text-toyota-red mr-1.5"></i> Eco Mode Soft</div>
+                            <div><i class="fa-solid fa-volume-xmark text-toyota-red mr-1.5"></i> Cabina Aislada</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 pt-0">
+                    <button onclick="openBuyModal('RAV4 Hybrid Premium', 36500)" class="w-full glass-button-red py-3.5 rounded-xl font-bold text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Reservar / Comprar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carro 3: Land Cruiser Prado -->
+            <div class="bg-toyota-black rounded-3xl overflow-hidden shadow-card-dark border border-gray-800 hover:border-toyota-red/60 transition-all duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="relative h-60 overflow-hidden bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80" alt="Land Cruiser Prado" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100">
+                        
+                        <div class="absolute top-4 left-4 bg-toyota-black/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-2">
+                            <i class="fa-solid fa-mountain-sun text-toyota-red text-sm"></i>
+                            <span class="text-white text-xs font-bold">4x4 Lujo Total</span>
+                        </div>
+
+                        <div class="absolute top-4 right-4 bg-toyota-red text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                            Ultra Deluxe
+                        </div>
+                    </div>
+
+                    <div class="p-6 text-white">
+                        <h3 class="font-syne text-2xl font-bold text-white">Land Cruiser Prado</h3>
+                        <p class="text-gray-400 text-xs mt-1">Asientos de piel ventilados, suspensión adaptativa de alto confort.</p>
+                        
+                        <div class="mt-5 flex items-baseline justify-between border-t border-gray-800 pt-4">
+                            <span class="font-syne text-3xl font-black text-toyota-red">$85,000</span>
+                            <span class="text-xs font-semibold text-gray-400">USD + Gastos</span>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-2 gap-2 text-xs font-medium text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                            <div><i class="fa-solid fa-chair text-toyota-red mr-1.5"></i> Cuero Nappa</div>
+                            <div><i class="fa-solid fa-road text-toyota-red mr-1.5"></i> Control Terreno</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 pt-0">
+                    <button onclick="openBuyModal('Land Cruiser Prado', 85000)" class="w-full glass-button-red py-3.5 rounded-xl font-bold text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Reservar / Comprar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carro 4: Hilux GR Sport -->
+            <div class="bg-toyota-black rounded-3xl overflow-hidden shadow-card-dark border border-gray-800 hover:border-toyota-red/60 transition-all duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="relative h-60 overflow-hidden bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80" alt="Toyota Hilux" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100">
+                        
+                        <div class="absolute top-4 left-4 bg-toyota-black/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-2">
+                            <i class="fa-solid fa-truck text-toyota-red text-sm"></i>
+                            <span class="text-white text-xs font-bold">Pickup Robusta</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 text-white">
+                        <h3 class="font-syne text-2xl font-bold text-white">Hilux GR Sport</h3>
+                        <p class="text-gray-400 text-xs mt-1">Resistencia total combinada con amortiguación de alto rendimiento.</p>
+                        
+                        <div class="mt-5 flex items-baseline justify-between border-t border-gray-800 pt-4">
+                            <span class="font-syne text-3xl font-black text-toyota-red">$48,000</span>
+                            <span class="text-xs font-semibold text-gray-400">USD + Gastos</span>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-2 gap-2 text-xs font-medium text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                            <div><i class="fa-solid fa-gauge-high text-toyota-red mr-1.5"></i> 221 HP Turbo</div>
+                            <div><i class="fa-solid fa-couch text-toyota-red mr-1.5"></i> Butacas GR Sport</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 pt-0">
+                    <button onclick="openBuyModal('Hilux GR Sport', 48000)" class="w-full glass-button-red py-3.5 rounded-xl font-bold text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Reservar / Comprar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carro 5: Toyota GR Supra -->
+            <div class="bg-toyota-black rounded-3xl overflow-hidden shadow-card-dark border border-gray-800 hover:border-toyota-red/60 transition-all duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="relative h-60 overflow-hidden bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80" alt="Toyota GR Supra" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100">
+                        
+                        <div class="absolute top-4 left-4 bg-toyota-black/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-2">
+                            <i class="fa-solid fa-flag-checkered text-toyota-red text-sm"></i>
+                            <span class="text-white text-xs font-bold">Deportivo</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 text-white">
+                        <h3 class="font-syne text-2xl font-bold text-white">Toyota GR Supra</h3>
+                        <p class="text-gray-400 text-xs mt-1">Conducción deportiva precisa con un habitáculo ergonómico de lujo.</p>
+                        
+                        <div class="mt-5 flex items-baseline justify-between border-t border-gray-800 pt-4">
+                            <span class="font-syne text-3xl font-black text-toyota-red">$58,000</span>
+                            <span class="text-xs font-semibold text-gray-400">USD + Gastos</span>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-2 gap-2 text-xs font-medium text-gray-300 bg-white/5 p-3 rounded-xl border border-white/5">
+                            <div><i class="fa-solid fa-bolt text-toyota-red mr-1.5"></i> 382 HP Turbo</div>
+                            <div><i class="fa-solid fa-music text-toyota-red mr-1.5"></i> Audio JBL Premium</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 pt-0">
+                    <button onclick="openBuyModal('Toyota GR Supra', 58000)" class="w-full glass-button-red py-3.5 rounded-xl font-bold text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Reservar / Comprar</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ==================== MODAL DE REGISTRO ==================== -->
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md hidden p-4">
+        <div class="glass-panel-dark max-w-md w-full rounded-3xl p-8 relative shadow-modal-deluxe text-white border border-gray-800">
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-gray-400 hover:text-toyota-red text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center justify-center mb-4">
+                <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center border border-white/10 shadow-lg">
+                    <i class="fa-solid fa-user-plus text-toyota-red text-2xl"></i>
+                </div>
+            </div>
+            
+            <h3 class="font-syne text-2xl font-bold text-center mb-1">Crea tu Cuenta <span class="text-toyota-red">Toyota</span></h3>
+            <p class="text-gray-400 text-xs text-center mb-6">Accede a cotizaciones personalizadas y reservas exclusivas.</p>
+
+            <form id="authForm" onsubmit="handleAuth(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Nombre Completo</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-4 top-3.5 text-gray-400 text-sm"></i>
+                        <input type="text" id="regName" required placeholder="Ej. Roberto Gómez" class="w-full bg-white/5 border border-white/15 rounded-xl pl-11 pr-4 py-3 text-white text-sm focus:outline-none focus:border-toyota-red transition">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Correo Electrónico</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-gray-400 text-sm"></i>
+                        <input type="email" id="regEmail" required placeholder="correo@ejemplo.com" class="w-full bg-white/5 border border-white/15 rounded-xl pl-11 pr-4 py-3 text-white text-sm focus:outline-none focus:border-toyota-red transition">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Contraseña</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-400 text-sm"></i>
+                        <input type="password" required placeholder="••••••••" class="w-full bg-white/5 border border-white/15 rounded-xl pl-11 pr-4 py-3 text-white text-sm focus:outline-none focus:border-toyota-red transition">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-toyota-red hover:bg-toyota-darkRed rounded-xl font-bold text-white transition duration-300 mt-2 shadow-lg shadow-toyota-red/30 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>Completar Registro</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL DE RESERVA / COMPRA ==================== -->
+    <div id="buyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md hidden p-4">
+        <div class="glass-panel-dark max-w-lg w-full rounded-3xl p-8 relative shadow-modal-deluxe text-white border border-gray-800">
+            <button onclick="closeBuyModal()" class="absolute top-5 right-5 text-gray-400 hover:text-toyota-red text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <span class="text-xs font-bold text-toyota-red tracking-widest uppercase">Paso 1 de 2: Personalización</span>
+            <h3 id="buyCarTitle" class="font-syne text-2xl font-bold mb-1">Modelo Toyota</h3>
+            <p id="buyCarPrice" class="font-syne text-toyota-red text-xl font-bold mb-6">$0 USD</p>
+
+            <form onsubmit="handlePurchase(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Seleccionar Color Preferido</label>
+                    <select class="w-full bg-zinc-900 border border-white/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-toyota-red">
+                        <option>Blanco Perlado de Lujo</option>
+                        <option>Negro Azabache Metálico</option>
+                        <option>Gris Titanio Sofisticado</option>
+                        <option>Rojo Emblemático Toyota</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Opciones de Adquisición</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="border border-white/15 p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:border-toyota-red bg-white/5">
+                            <input type="radio" name="paymentType" value="reserva" checked class="accent-toyota-red">
+                            <span class="text-xs text-white font-medium">Apartado ($1,000 USD)</span>
+                        </label>
+                        <label class="border border-white/15 p-3 rounded-xl flex items-center gap-2 cursor-pointer hover:border-toyota-red bg-white/5">
+                            <input type="radio" name="paymentType" value="contado" class="accent-toyota-red">
+                            <span class="text-xs text-white font-medium">Compra Directa</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-toyota-red hover:bg-toyota-darkRed rounded-xl font-bold text-white transition duration-300 mt-4 shadow-lg shadow-toyota-red/30 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Enviar Solicitud de Reserva</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notificación -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 bg-toyota-black border border-toyota-red text-white px-6 py-4 rounded-2xl hidden shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-toyota-red text-xl"></i>
+        <span id="toastMsg" class="text-sm font-semibold">Proceso exitoso</span>
+    </div>
+
+    <!-- Lógica de Interacción -->
+    <script>
+        let currentCarName = '';
+        let currentCarPrice = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('toyota_user') || 'genlly roa';
+            setLoggedInUser(savedUser);
+        });
+
+        function openAuthModal() {
+            document.getElementById('authModal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value;
+            localStorage.setItem('toyota_user', name);
+            setLoggedInUser(name);
+            closeAuthModal();
+            showToast('¡Registro completado! Bienvenido, ' + name);
+        }
+
+        function setLoggedInUser(name) {
+            document.getElementById('authBtn').classList.add('hidden');
+            document.getElementById('userProfile').classList.remove('hidden');
+            document.getElementById('userNameDisplay').innerText = name;
+        }
+
+        function logout() {
+            localStorage.removeItem('toyota_user');
+            document.getElementById('authBtn').classList.remove('hidden');
+            document.getElementById('userProfile').classList.add('hidden');
+            showToast('Has cerrado sesión');
+        }
+
+        function openBuyModal(carName, price) {
+            currentCarName = carName;
+            currentCarPrice = price;
+
+            document.getElementById('buyCarTitle').innerText = carName;
+            document.getElementById('buyCarPrice').innerText = '$' + price.toLocaleString() + ' USD';
+            document.getElementById('buyModal').classList.remove('hidden');
+        }
+
+        function closeBuyModal() {
+            document.getElementById('buyModal').classList.add('hidden');
+        }
+
+        function handlePurchase(e) {
+            e.preventDefault();
+            closeBuyModal();
+            const user = localStorage.getItem('toyota_user') || 'Cliente';
+            showToast(`¡Gracias ${user}! Tu reserva para el ${currentCarName} ha sido recibida.`);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
